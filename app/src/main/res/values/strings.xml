@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PneumonAI</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string
+        name="About">PneumonAI is and Android app adaptation from an AI algorithm trained to detect pneumonia from an X-Ray picture. You can upload your picture by clicking the button below.
+        \n\nPlease, if you detect any bug or want to tell us anything, contact on pericoeldelospalotes@palotes.com.
+    </string>
+</resources>
