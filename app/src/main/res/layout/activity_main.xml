@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ImageView"
-            android:layout_width="300dp"
-            android:layout_height="250dp"
-            android:layout_marginTop="25dp"
-            android:visibility="gone"
-            android:layout_gravity="center"
+    <ImageView
+        android:id="@+id/ImageView"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="25dp"
+        android:visibility="gone"
+        android:layout_gravity="center"
         />
 
     <EditText
@@ -23,31 +23,28 @@
         />
 
     <Button
-            android:id="@+id/ChooseImage"
-            android:layout_width="match_parent"
-            android:layout_height="150px"
-            android:layout_marginTop="100px"
-            android:background="#FFFFFF"
-            android:onClick="connectServer"
-            android:text="Choose image" />
+        android:id="@+id/ChooseImage"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:layout_marginTop="100px"
+        android:background="#FFFFFF"
+        android:text="Choose image" />
 
-        <Button
-            android:id="@+id/UploadImage"
-            android:layout_width="match_parent"
-            android:layout_height="150px"
-            android:layout_marginTop="50px"
-            android:background="#FFFFFF"
-            android:onClick="connectServer"
-            android:text="Upload image" />
+    <Button
+        android:id="@+id/UploadImage"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:layout_marginTop="50px"
+        android:background="#FFFFFF"
+        android:text="Upload image" />
 
-        <Button
-            android:id="@+id/btnSendRequest"
-            android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:layout_marginTop="100px"
-            android:background="#FFFFFF"
-            android:onClick="connectServer"
-            android:text="Ping to Server" />
+    <Button
+        android:id="@+id/btnSendRequest"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="100px"
+        android:background="#FFFFFF"
+        android:text="Ping to Server" />
 
     <TextView
         android:id="@+id/responseText"
