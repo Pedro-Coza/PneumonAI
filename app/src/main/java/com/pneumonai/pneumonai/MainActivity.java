@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     private void uploadImage(final Bitmap bitmap) {
 
-        //Para mostrar el loading
+        //Para mostrar el loading ------
         //ProgressDialog.show(this, "Loading", "Wait while loading...");
 
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, URL,
