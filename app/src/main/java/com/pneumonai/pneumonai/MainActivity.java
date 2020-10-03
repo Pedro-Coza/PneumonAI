@@ -1,6 +1,7 @@
 package com.pneumonai.pneumonai;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -21,11 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.*;
@@ -37,6 +40,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -167,6 +171,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                     ImageView.setVisibility(View.VISIBLE);
                     Name.setVisibility(View.VISIBLE);
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 150,150, false);
                     ImageView.setImageBitmap(bitmap);
                     Log.d("filePath", String.valueOf(filePath));
                 } catch (IOException e) {
@@ -206,12 +211,26 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     private void uploadImage(final Bitmap bitmap) {
 
+        //Para mostrar el loading
+        //ProgressDialog.show(this, "Loading", "Wait while loading...");
+
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, URL,
                 new Response.Listener<NetworkResponse>() {
                     @Override
-                    public void onResponse(NetworkResponse response) {
-                            String resp = new String(response.data);
-                            Toast.makeText(getApplicationContext(), resp, Toast.LENGTH_SHORT).show();
+                    public void onResponse(final NetworkResponse response) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+                                    TextView responseText = findViewById(R.id.responseText);
+                                    responseText.setText(json);
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                    e.getMessage();
+                                }
+                            }
+                        });
                     }
                 },
                 new Response.ErrorListener() {
@@ -232,7 +251,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             }
         };
 
+        volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //adding the request to volley
         Volley.newRequestQueue(this).add(volleyMultipartRequest);
     }
+
 }
