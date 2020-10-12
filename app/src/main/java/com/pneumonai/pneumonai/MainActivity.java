@@ -1,9 +1,9 @@
 package com.pneumonai.pneumonai;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -31,23 +31,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.loopj.android.http.*;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import cz.msebera.android.httpclient.Header;
 
-
-public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = MainActivity.class.toString();
 
@@ -59,7 +53,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     //private TextView text = findViewById(R.id.responseText);
 
-    private Button ChooseImage, UploadImage;
+    private Button UploadImage;
     private EditText Name;
     private ImageView ImageView;
     private final int IMG_REQUEST = 1;
@@ -75,7 +69,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         setContentView(R.layout.activity_main);
 
         UploadImage = (Button)findViewById(R.id.UploadImage);
-        ChooseImage = (Button)findViewById(R.id.ChooseImage);
+        ExtendedFloatingActionButton ChooseImage = findViewById(R.id.ChooseImage);
         Name = (EditText) findViewById(R.id.Name);
         ImageView = (ImageView)findViewById(R.id.ImageView);
         ChooseImage.setOnClickListener(new View.OnClickListener() {
@@ -147,9 +141,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
         switch (view.getId()){
             case R.id.UploadImage:
-                uploadImage(bitmap);
+               uploadImage(bitmap);
+            }
+
         }
-    }
 
     private void selectImage() {
         Intent intent = new Intent();
@@ -171,12 +166,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                     ImageView.setVisibility(View.VISIBLE);
                     Name.setVisibility(View.VISIBLE);
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    bitmap = Bitmap.createScaledBitmap(bitmap, 150,150, false);
                     ImageView.setImageBitmap(bitmap);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 150,150, false);
                     Log.d("filePath", String.valueOf(filePath));
                 } catch (IOException e) {
-                    e.getMessage();
-                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this,"Please, select an image", Toast.LENGTH_LONG).show();
                 }
             }
             else {
@@ -205,7 +199,22 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        try {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        } catch (NullPointerException e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(MainActivity.this,"Please, select an image", Toast.LENGTH_LONG).show();
+                    try {
+                        this.finalize();
+                    } catch (Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                }
+            });
+
+        }
         return byteArrayOutputStream.toByteArray();
     }
 
