@@ -1,6 +1,7 @@
 package com.pneumonai.pneumonai;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -200,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
         } catch (NullPointerException e) {
             runOnUiThread(new Runnable() {
                 @Override
@@ -245,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                         Log.e("GotError",""+error.getMessage());
                     }
                 }) {
