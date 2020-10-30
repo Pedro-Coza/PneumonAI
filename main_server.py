@@ -59,8 +59,8 @@ def handle_request():
         print("Se ha tardado " + str(totalTime) + " segundos en completar la operación\n")
         value=pred[0][pred_redondeada]*100
         if pred_redondeada == 0:
-            print("Esto no es una radiografía payaso | " + str(value))
-            result = "Esto no es una radiografía payaso | " + str(value)
+            print("Esto no es una radiografía  | " + str(value))
+            result = "Esto no es una radiografía  | " + str(value)
         if pred_redondeada == 1:
             print("No se aprecian indicios de pneumonía en su radiografía | " + str(value))
             result = " No se aprecian indicios de neumonía en su radiografía | " + str(value) 
