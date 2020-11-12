@@ -13,8 +13,11 @@ PneumonAI is an Android app wich takes a picture from a chest X-Ray and send it 
 PREDICTION MODEL
 
 MODEL: convolutional neural network MOBILNET
+
 DATA SET: www.kaggle.com
+
 TRAIN SET: 5.215 images
+
 TEST SET: 1.186 images
 
 
