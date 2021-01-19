@@ -5,7 +5,7 @@ PneumonAI is an Android app wich takes a picture from a chest X-Ray and send it 
 * Pedro Coza Mateos (pedro.coza@gmail.com) - Android App & Flask server set up
 * Manuel León Lara (mleonlara95@gmail.com) - Model Training & Flask Server integration
 
-![alt text](https://github.com/Pedro-Coza/PneumonAI/blob/master/githubphoto.png)
+![alt text](https://github.com/Pedro-Coza/PneumonAI/blob/master/git_res/githubphoto.png)
 
 
 
@@ -27,4 +27,4 @@ PneumonAI is an Android app wich takes a picture from a chest X-Ray and send it 
 
 ## RESULTS
 
-![alt text](https://github.com/Pedro-Coza/PneumonAI/blob/master/github_photo.png)
+![alt text](https://github.com/Pedro-Coza/PneumonAI/blob/master/git_res/github_photo.png)
