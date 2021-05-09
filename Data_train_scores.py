@@ -246,4 +246,4 @@ print("recall test: ", recall_score(Y_test_v,y_pred_test))
 import keras
 keras.models.save_model(model,'MOBILNET/model1.h5')
 
-    Son muy buenos resultados, pero podríamos ir un poco mas alla, intentado que la recall test mejore que es una de las metricas que más nos interesan.
+    
